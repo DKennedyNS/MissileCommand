@@ -7,6 +7,7 @@ using System.Drawing;
 
 namespace ActorLibrary
 {
+   
     /// <summary>
     /// Class for the player's cities.
     /// </summary>
@@ -21,9 +22,16 @@ namespace ActorLibrary
             this.displayArea = area;
         }
 
-        public bool IsHit()
+        public bool IsHit(Missile missile)
         {
-            if(this.displayArea.IntersectsWith)
+            if (this.displayArea.IntersectsWith(missile.getBounds()))
+            {
+                return true;
+            }
+            else
+            {
+                return false;
+            }
         }
     }
 
@@ -32,9 +40,42 @@ namespace ActorLibrary
     /// </summary>
     public class Missile
     {
-        public Missile()
-        {
+        private Rectangle displayArea;
+        private Rectangle canvas;
+        private int size = 5; 
+        private int xVelocity;
+        private int yVelocity;
 
+        /// <summary>
+        /// Constructor for the missiles. Sets a random start position and fixed velocity
+        /// </summary>
+        /// <param name="canvas"></param>
+        public Missile(Rectangle canvas, Random rand)
+        {
+            displayArea.Height = size;
+            displayArea.Width = size;
+            this.canvas = canvas;
+            displayArea.X = rand.Next(0, canvas.Width + 1);
+            displayArea.Y = 0;
+            this.xVelocity = rand.Next(-1, 2); //TODO: change these to increase as a factor of the level.
+            this.yVelocity = 5;
+            
+        }
+
+        public Rectangle getBounds()
+        {
+            return displayArea;
+        }
+
+        public void Move()
+        {
+            displayArea.X += xVelocity;
+            displayArea.Y += yVelocity;
+        }
+
+        public void Draw(Graphics graphics)
+        {        
+            graphics.FillRectangle(Brushes.White, displayArea);
         }
     }
 

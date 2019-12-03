@@ -21,8 +21,10 @@ namespace MissileCommand
         private City city2;
         private City city3;
         private City city4;
-        private List<City> cityList;
-        private List<Missile> missileList;
+        private List<City> cityList = new List<City>();
+        private List<Missile> missileList = new List<Missile>();
+        private readonly Random rand = new Random();
+       
 
         /// <summary>
         /// Primary game form constructor.
@@ -40,23 +42,42 @@ namespace MissileCommand
         /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
         {
-            
+            DoubleBuffered = true;
             reticle = new Reticle();
+
+            //Build cities and add to the list
             city1 = new City(City1PictureBox.Bounds);
             city2 = new City(City2PictureBox.Bounds);
             city3 = new City(City3PictureBox.Bounds);
             city4 = new City(City4PictureBox.Bounds);
-
             cityList.Add(city1);
             cityList.Add(city2);
             cityList.Add(city3);
             cityList.Add(city4);
 
+            makeMissiles();
+
             if (!GameTimer.Enabled)
             {
                 GameTimer.Start();
+            }           
+        }
+
+        private void makeMissiles()
+        {
+            for (int j = 0; j <= 5; j++)
+            {
+                missileList.Add(new Missile(GameScreen.DisplayRectangle, rand));
             }
-            
+        }
+
+        private void Form1_Paint(object sender, PaintEventArgs e)
+        {
+
+            foreach (Missile missile in missileList)
+            {
+                missile.Draw(e.Graphics);
+            }
 
         }
 
@@ -78,9 +99,14 @@ namespace MissileCommand
         private void GameTimer_Tick(object sender, EventArgs e)
         {
             Console.WriteLine("Tick");
-        }
- 
 
+            foreach (Missile missile in missileList)
+            {
+                missile.Move();                
+            }
+            Invalidate();
+            Update();
+        }   
 
         //private void Form1_KeyDown(object sender, KeyEventArgs e)
         //{

@@ -55,13 +55,15 @@
             // GameScreen
             // 
             this.GameScreen.BackColor = System.Drawing.Color.Transparent;
-            this.GameScreen.Image = ((System.Drawing.Image)(resources.GetObject("GameScreen.Image")));
+            this.GameScreen.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("GameScreen.BackgroundImage")));
+            this.GameScreen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
             this.GameScreen.Location = new System.Drawing.Point(0, 0);
             this.GameScreen.Name = "GameScreen";
             this.GameScreen.Size = new System.Drawing.Size(1024, 1015);
             this.GameScreen.SizeMode = System.Windows.Forms.PictureBoxSizeMode.AutoSize;
             this.GameScreen.TabIndex = 1;
             this.GameScreen.TabStop = false;
+            this.GameScreen.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             // 
             // ButtonReset
             // 
@@ -207,6 +209,7 @@
             this.StartPosition = System.Windows.Forms.FormStartPosition.CenterScreen;
             this.Text = "Missile Command";
             this.Load += new System.EventHandler(this.Form1_Load);
+            this.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
             ((System.ComponentModel.ISupportInitialize)(this.GameScreen)).EndInit();
             this.panel1.ResumeLayout(false);
             this.panel1.PerformLayout();
