@@ -57,6 +57,7 @@
             this.GameScreen.BackColor = System.Drawing.Color.Transparent;
             this.GameScreen.BackgroundImage = ((System.Drawing.Image)(resources.GetObject("GameScreen.BackgroundImage")));
             this.GameScreen.BackgroundImageLayout = System.Windows.Forms.ImageLayout.Stretch;
+            this.GameScreen.Cursor = System.Windows.Forms.Cursors.Cross;
             this.GameScreen.Location = new System.Drawing.Point(0, 0);
             this.GameScreen.Name = "GameScreen";
             this.GameScreen.Size = new System.Drawing.Size(1024, 1015);
@@ -131,6 +132,7 @@
             // GroundPictureBox
             // 
             this.GroundPictureBox.BackColor = System.Drawing.Color.Black;
+            this.GroundPictureBox.Cursor = System.Windows.Forms.Cursors.Cross;
             this.GroundPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("GroundPictureBox.Image")));
             this.GroundPictureBox.Location = new System.Drawing.Point(0, 596);
             this.GroundPictureBox.Name = "GroundPictureBox";
@@ -140,6 +142,7 @@
             // 
             // FlakPictureBox
             // 
+            this.FlakPictureBox.Cursor = System.Windows.Forms.Cursors.Cross;
             this.FlakPictureBox.Image = ((System.Drawing.Image)(resources.GetObject("FlakPictureBox.Image")));
             this.FlakPictureBox.Location = new System.Drawing.Point(434, 542);
             this.FlakPictureBox.Name = "FlakPictureBox";
@@ -150,6 +153,7 @@
             // 
             // City1PictureBox
             // 
+            this.City1PictureBox.Cursor = System.Windows.Forms.Cursors.Cross;
             this.City1PictureBox.Image = ((System.Drawing.Image)(resources.GetObject("City1PictureBox.Image")));
             this.City1PictureBox.Location = new System.Drawing.Point(152, 627);
             this.City1PictureBox.Name = "City1PictureBox";
@@ -159,6 +163,7 @@
             // 
             // City2PictureBox
             // 
+            this.City2PictureBox.Cursor = System.Windows.Forms.Cursors.Cross;
             this.City2PictureBox.Image = ((System.Drawing.Image)(resources.GetObject("City2PictureBox.Image")));
             this.City2PictureBox.Location = new System.Drawing.Point(316, 627);
             this.City2PictureBox.Name = "City2PictureBox";
@@ -168,6 +173,7 @@
             // 
             // City3PictureBox
             // 
+            this.City3PictureBox.Cursor = System.Windows.Forms.Cursors.Cross;
             this.City3PictureBox.Image = ((System.Drawing.Image)(resources.GetObject("City3PictureBox.Image")));
             this.City3PictureBox.Location = new System.Drawing.Point(601, 627);
             this.City3PictureBox.Name = "City3PictureBox";
@@ -177,6 +183,7 @@
             // 
             // City4PictureBox
             // 
+            this.City4PictureBox.Cursor = System.Windows.Forms.Cursors.Cross;
             this.City4PictureBox.Image = ((System.Drawing.Image)(resources.GetObject("City4PictureBox.Image")));
             this.City4PictureBox.Location = new System.Drawing.Point(786, 627);
             this.City4PictureBox.Name = "City4PictureBox";
