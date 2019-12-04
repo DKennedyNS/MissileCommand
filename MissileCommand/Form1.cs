@@ -27,6 +27,9 @@ namespace MissileCommand
         private int round = 0;
         private int level = 1;
         private bool run = false;
+        private int score;
+        private bool gameOver = false;
+        private bool levelEnd = false;
        
 
         /// <summary>
@@ -37,6 +40,17 @@ namespace MissileCommand
             InitializeComponent();
             Executor.ButtonStartClicked += new Delegates.ButtonStartClickedEventHandler(Executor_ButtonStartClick);
             Executor.GameScreenClicked += new Delegates.GameScreenClickedEventHandler(Executor_GameScreenClick);
+
+            //Build cities
+            city1 = new City(City1PictureBox.Bounds, "city1");
+            city2 = new City(City2PictureBox.Bounds, "city2");
+            city3 = new City(City3PictureBox.Bounds, "city3");
+            city4 = new City(City4PictureBox.Bounds, "city4");
+            //Add cities to the list        
+            cityList.Add(city1);
+            cityList.Add(city2);
+            cityList.Add(city3);
+            cityList.Add(city4);
         }
 
         /// <summary>
@@ -48,15 +62,12 @@ namespace MissileCommand
         {        
             DoubleBuffered = true;
 
-            //Build cities and add to the list
-            city1 = new City(City1PictureBox.Bounds, "city1");
-            city2 = new City(City2PictureBox.Bounds, "city2");
-            city3 = new City(City3PictureBox.Bounds, "city3");
-            city4 = new City(City4PictureBox.Bounds, "city4");
-            cityList.Add(city1);
-            cityList.Add(city2);
-            cityList.Add(city3);
-            cityList.Add(city4);
+            LevelText.Text = "Level: " + level;
+     
+            LevelEndScreen.Visible = false;
+            LevelEndScoreText.Visible = false;
+            LevelEndText.Visible = false;
+            ContinueText.Visible = false;
           
         }
 
@@ -74,7 +85,8 @@ namespace MissileCommand
             }
             else
             {
-                level++;
+                score += 500;
+                LevelEnd();
             }
         }
 
@@ -96,6 +108,28 @@ namespace MissileCommand
                 flak.Draw(e.Graphics);
             }
 
+            ScoreText.Text = "Score: " + score;
+
+        }
+
+        private void LevelEnd()
+        {
+            GameTimer.Stop();
+            levelEnd = true;
+            LevelEndScreen.Visible = true;
+            LevelEndScoreText.Text = "Score: " + score;
+            LevelEndScoreText.Visible = true;
+       
+            if (!gameOver)
+            {
+                LevelEndText.Text = "Level " + level + " Complete!";
+                ContinueText.Visible = true;
+            }
+            else
+            {
+                LevelEndText.Text = "Game Over!";
+            }
+            LevelEndText.Visible = true;
         }
 
         /// <summary>
@@ -107,6 +141,7 @@ namespace MissileCommand
         {
             if (!run)
             {
+                ContinueText.Visible = false;
                 run = true;
                 makeMissiles();
 
@@ -115,13 +150,24 @@ namespace MissileCommand
                     GameTimer.Start();
                 }
             }
+            else if(levelEnd)
+            {
+                level++;
+                round = 0;
+                Form1_Load(sender, e);
+                levelEnd = false;
+                GameTimer.Start();
+            }
         }
 
+        /// <summary>
+        /// Spawn flak where the user clicks
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Executor_GameScreenClick(object sender, MouseEventArgs e)
         {
-            Point point = e.Location;
-            Console.WriteLine(point);
-            flakList.Add(new Flak(point));
+            flakList.Add(new Flak(e.Location));
         }
 
         /// <summary>
@@ -133,13 +179,13 @@ namespace MissileCommand
         {
             Console.WriteLine("Tick");
 
-            //If we still have missles up, go through each and update position.
+            //If we still have missiles up, go through each and update position.
             //Go through each city and see if the missile hit it, if so remove the city.
             if (missileList.Count != 0 && round < 4 && cityList.Count != 0)
             {
                 foreach (Missile missile in missileList)
                 {
-                    missile.Move();
+                    missile.Move();                    
                     foreach (City city in cityList)
                     {
                         if (city.IsHit(missile))
@@ -174,6 +220,16 @@ namespace MissileCommand
                             }
                         }
                     }
+
+                    //Go through the flakList and see if any missiles got hit
+                    foreach(Flak flak in flakList)
+                    {
+                        if (flak.IsHit(missile))
+                        {
+                            score += 1000;
+                            missile.hit = true;
+                        }
+                    }
                 }
 
                 //Go through the city list and remove the destroyed ones.
@@ -185,19 +241,33 @@ namespace MissileCommand
                     }
                 }
 
-                // If the player still has cities, go through the missile list and remove the destroyed ones.
-                foreach (var missile in missileList.ToList())
+                if(cityList.Count() == 0)
                 {
-                    if(cityList.Count == 0)
+                    gameOver = true;
+                    LevelEnd();
+                    missileList.Clear();
+                    flakList.Clear();
+                }
+                else
+                {
+                    // If the player still has cities, go through the missile list and remove the destroyed ones.
+                    foreach (var missile in missileList.ToList())
                     {
-                        missileList.Clear();
+                        if (missile.getBounds().Top > 620 || missile.hit == true)
+                        {
+                            missileList.Remove(missile);
+                        }
                     }
-                    else if (missile.getBounds().Top > 620 || missile.hit == true)
+
+                    foreach (Flak flak in flakList.ToList())
                     {
-                        missileList.Remove(missile);
+                        if (flak.isDisposed())
+                        {
+                            flakList.Remove(flak);
+                        }
                     }
                 }
-
+          
                 //Force the screen to redraw
                 Invalidate();
                 Update();

@@ -42,6 +42,12 @@
             this.City3PictureBox = new System.Windows.Forms.PictureBox();
             this.City4PictureBox = new System.Windows.Forms.PictureBox();
             this.GameTimer = new System.Windows.Forms.Timer(this.components);
+            this.ScoreText = new System.Windows.Forms.TextBox();
+            this.LevelText = new System.Windows.Forms.TextBox();
+            this.LevelEndScreen = new System.Windows.Forms.PictureBox();
+            this.LevelEndText = new System.Windows.Forms.TextBox();
+            this.LevelEndScoreText = new System.Windows.Forms.TextBox();
+            this.ContinueText = new System.Windows.Forms.TextBox();
             ((System.ComponentModel.ISupportInitialize)(this.GameScreen)).BeginInit();
             this.panel1.SuspendLayout();
             ((System.ComponentModel.ISupportInitialize)(this.GroundPictureBox)).BeginInit();
@@ -50,6 +56,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.City2PictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.City3PictureBox)).BeginInit();
             ((System.ComponentModel.ISupportInitialize)(this.City4PictureBox)).BeginInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LevelEndScreen)).BeginInit();
             this.SuspendLayout();
             // 
             // GameScreen
@@ -201,11 +208,106 @@
             this.GameTimer.Interval = 16;
             this.GameTimer.Tick += new System.EventHandler(this.GameTimer_Tick);
             // 
+            // ScoreText
+            // 
+            this.ScoreText.BackColor = System.Drawing.Color.Black;
+            this.ScoreText.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ScoreText.CausesValidation = false;
+            this.ScoreText.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.ScoreText.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.ScoreText.Enabled = false;
+            this.ScoreText.Font = new System.Drawing.Font("Consolas", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ScoreText.ForeColor = System.Drawing.Color.LawnGreen;
+            this.ScoreText.Location = new System.Drawing.Point(12, 12);
+            this.ScoreText.Name = "ScoreText";
+            this.ScoreText.ReadOnly = true;
+            this.ScoreText.Size = new System.Drawing.Size(235, 24);
+            this.ScoreText.TabIndex = 9;
+            // 
+            // LevelText
+            // 
+            this.LevelText.BackColor = System.Drawing.Color.Black;
+            this.LevelText.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.LevelText.CausesValidation = false;
+            this.LevelText.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.LevelText.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.LevelText.Enabled = false;
+            this.LevelText.Font = new System.Drawing.Font("Consolas", 15F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LevelText.ForeColor = System.Drawing.Color.LawnGreen;
+            this.LevelText.Location = new System.Drawing.Point(852, 12);
+            this.LevelText.Name = "LevelText";
+            this.LevelText.ReadOnly = true;
+            this.LevelText.Size = new System.Drawing.Size(144, 24);
+            this.LevelText.TabIndex = 10;
+            this.LevelText.TextAlign = System.Windows.Forms.HorizontalAlignment.Right;
+            // 
+            // LevelEndScreen
+            // 
+            this.LevelEndScreen.BackColor = System.Drawing.Color.Black;
+            this.LevelEndScreen.Location = new System.Drawing.Point(0, 0);
+            this.LevelEndScreen.Name = "LevelEndScreen";
+            this.LevelEndScreen.Size = new System.Drawing.Size(1008, 680);
+            this.LevelEndScreen.TabIndex = 11;
+            this.LevelEndScreen.TabStop = false;
+            this.LevelEndScreen.Visible = false;
+            // 
+            // LevelEndText
+            // 
+            this.LevelEndText.BackColor = System.Drawing.Color.Black;
+            this.LevelEndText.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.LevelEndText.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.LevelEndText.Font = new System.Drawing.Font("Consolas", 25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LevelEndText.ForeColor = System.Drawing.Color.LawnGreen;
+            this.LevelEndText.Location = new System.Drawing.Point(316, 138);
+            this.LevelEndText.Name = "LevelEndText";
+            this.LevelEndText.ReadOnly = true;
+            this.LevelEndText.Size = new System.Drawing.Size(381, 40);
+            this.LevelEndText.TabIndex = 12;
+            this.LevelEndText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.LevelEndText.Visible = false;
+            // 
+            // LevelEndScoreText
+            // 
+            this.LevelEndScoreText.BackColor = System.Drawing.Color.Black;
+            this.LevelEndScoreText.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.LevelEndScoreText.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.LevelEndScoreText.Font = new System.Drawing.Font("Consolas", 25F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.LevelEndScoreText.ForeColor = System.Drawing.Color.LawnGreen;
+            this.LevelEndScoreText.Location = new System.Drawing.Point(316, 210);
+            this.LevelEndScoreText.Name = "LevelEndScoreText";
+            this.LevelEndScoreText.ReadOnly = true;
+            this.LevelEndScoreText.Size = new System.Drawing.Size(381, 40);
+            this.LevelEndScoreText.TabIndex = 13;
+            this.LevelEndScoreText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            this.LevelEndScoreText.Visible = false;
+            // 
+            // ContinueText
+            // 
+            this.ContinueText.BackColor = System.Drawing.Color.Black;
+            this.ContinueText.BorderStyle = System.Windows.Forms.BorderStyle.None;
+            this.ContinueText.CharacterCasing = System.Windows.Forms.CharacterCasing.Upper;
+            this.ContinueText.Cursor = System.Windows.Forms.Cursors.Cross;
+            this.ContinueText.Font = new System.Drawing.Font("Consolas", 16F, System.Drawing.FontStyle.Bold, System.Drawing.GraphicsUnit.Point, ((byte)(0)));
+            this.ContinueText.ForeColor = System.Drawing.Color.LawnGreen;
+            this.ContinueText.Location = new System.Drawing.Point(316, 565);
+            this.ContinueText.Name = "ContinueText";
+            this.ContinueText.ReadOnly = true;
+            this.ContinueText.Size = new System.Drawing.Size(381, 25);
+            this.ContinueText.TabIndex = 14;
+            this.ContinueText.Text = "PRESS START";
+            this.ContinueText.TextAlign = System.Windows.Forms.HorizontalAlignment.Center;
+            // 
             // Form1
             // 
             this.AutoScaleDimensions = new System.Drawing.SizeF(6F, 13F);
             this.AutoScaleMode = System.Windows.Forms.AutoScaleMode.Font;
             this.ClientSize = new System.Drawing.Size(1008, 729);
+            this.Controls.Add(this.ContinueText);
+            this.Controls.Add(this.LevelEndScoreText);
+            this.Controls.Add(this.LevelEndText);
+            this.Controls.Add(this.LevelText);
+            this.Controls.Add(this.ScoreText);
+            this.Controls.Add(this.LevelEndScreen);
             this.Controls.Add(this.City4PictureBox);
             this.Controls.Add(this.City3PictureBox);
             this.Controls.Add(this.City2PictureBox);
@@ -231,6 +333,7 @@
             ((System.ComponentModel.ISupportInitialize)(this.City2PictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.City3PictureBox)).EndInit();
             ((System.ComponentModel.ISupportInitialize)(this.City4PictureBox)).EndInit();
+            ((System.ComponentModel.ISupportInitialize)(this.LevelEndScreen)).EndInit();
             this.ResumeLayout(false);
             this.PerformLayout();
 
@@ -249,6 +352,12 @@
         private System.Windows.Forms.PictureBox City3PictureBox;
         private System.Windows.Forms.PictureBox City4PictureBox;
         private System.Windows.Forms.Timer GameTimer;
+        private System.Windows.Forms.TextBox ScoreText;
+        private System.Windows.Forms.TextBox LevelText;
+        private System.Windows.Forms.PictureBox LevelEndScreen;
+        private System.Windows.Forms.TextBox LevelEndText;
+        private System.Windows.Forms.TextBox LevelEndScoreText;
+        private System.Windows.Forms.TextBox ContinueText;
     }
 }
 
