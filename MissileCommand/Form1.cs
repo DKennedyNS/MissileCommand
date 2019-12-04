@@ -16,6 +16,7 @@ namespace MissileCommand
     /// </summary>
     public partial class Form1 : Form
     {
+        //Private game vars.
         private City city1;
         private City city2;
         private City city3;
@@ -37,10 +38,21 @@ namespace MissileCommand
         /// </summary>
         public Form1()
         {
-            InitializeComponent();
+            InitializeComponent();           
             Executor.ButtonStartClicked += new Delegates.ButtonStartClickedEventHandler(Executor_ButtonStartClick);
             Executor.GameScreenClicked += new Delegates.GameScreenClickedEventHandler(Executor_GameScreenClick);
+            Executor.ButtonResetClicked += new Delegates.ButtonResetClickedEventHandler(Executor_ButtonResetClick);
+            Executor.ButtonQuitClicked += new Delegates.ButtonQuitClickedEventHandler(Executor_ButtonQuitClick);
 
+            AddCities();
+        }
+
+        /// <summary>
+        /// Adds the created cities to the list, and sets the visible. Called on load and reset.
+        /// </summary>
+        public void AddCities()
+        {
+            cityList.Clear();
             //Build cities
             city1 = new City(City1PictureBox.Bounds, "city1");
             city2 = new City(City2PictureBox.Bounds, "city2");
@@ -51,6 +63,11 @@ namespace MissileCommand
             cityList.Add(city2);
             cityList.Add(city3);
             cityList.Add(city4);
+
+            City1PictureBox.Visible = true;
+            City2PictureBox.Visible = true;
+            City3PictureBox.Visible = true;
+            City4PictureBox.Visible = true;
         }
 
         /// <summary>
@@ -80,13 +97,13 @@ namespace MissileCommand
             {
                 for (int j = 0; j <= 5; j++)
                 {
-                    missileList.Add(new Missile(GameScreen.DisplayRectangle, rand));
+                    missileList.Add(new Missile(GameScreen.DisplayRectangle, rand, level));
                 }
             }
             else
             {
-                score += 500;
-                LevelEnd();
+                levelEnd = true;
+                LevelEnd();              
             }
         }
 
@@ -112,17 +129,18 @@ namespace MissileCommand
 
         }
 
+        /// <summary>
+        /// Method for happens at the end of the level
+        /// </summary>
         private void LevelEnd()
         {
-            GameTimer.Stop();
-            levelEnd = true;
+            GameTimer.Stop();           
             LevelEndScreen.Visible = true;
-            LevelEndScoreText.Text = "Score: " + score;
-            LevelEndScoreText.Visible = true;
        
             if (!gameOver)
             {
-                LevelEndText.Text = "Level " + level + " Complete!";
+                score += 500;
+                LevelEndText.Text = "Level " + level + " Complete!";              
                 ContinueText.Visible = true;
             }
             else
@@ -130,8 +148,11 @@ namespace MissileCommand
                 LevelEndText.Text = "Game Over!";
             }
             LevelEndText.Visible = true;
+            LevelEndScoreText.Text = "Score: " + score;
+            LevelEndScoreText.Visible = true;
         }
 
+        //On Click listeners
         /// <summary>
         /// On click for the start button. Starts the game.
         /// </summary>
@@ -150,14 +171,28 @@ namespace MissileCommand
                     GameTimer.Start();
                 }
             }
-            else if(levelEnd)
+            else if(levelEnd && !gameOver)
             {
                 level++;
                 round = 0;
+                GameTimer.Start();
                 Form1_Load(sender, e);
                 levelEnd = false;
-                GameTimer.Start();
             }
+            else if(gameOver)
+            {
+                Reset(sender, e);
+            }
+        }
+
+        /// <summary>
+        /// On click for the reset button. Resets the game.
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Executor_ButtonResetClick(object sender, EventArgs e)
+        {
+            Reset(sender, e);
         }
 
         /// <summary>
@@ -171,7 +206,41 @@ namespace MissileCommand
         }
 
         /// <summary>
-        /// A timer which controls teh game tick. Set to ~60FPS (16ms)
+        /// On click for the quit button. Closes the program
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        private void Executor_ButtonQuitClick(object sender, EventArgs e)
+        {
+            // According to the OEM documentation for Application.Exit(), this is all that's needed to safely close an application.
+            Application.Exit();
+        }  
+        //End On click listeners
+
+        /// <summary>
+        /// Resets the game
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        public void Reset(object sender, EventArgs e)
+        {
+            run = false;
+            round = 0;
+            level = 1;
+            score = 0;
+            levelEnd = false;
+            gameOver = false;
+
+            missileList.Clear();
+            flakList.Clear();
+            AddCities();
+            Form1_Load(sender, e);
+            GameTimer.Start();
+            run = true;
+        }
+
+        /// <summary>
+        /// The core game loop. Checks all possible interactions at every tick. Set to ~60FPS (16ms)
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
@@ -243,10 +312,10 @@ namespace MissileCommand
 
                 if(cityList.Count() == 0)
                 {
-                    gameOver = true;
-                    LevelEnd();
+                    gameOver = true;                    
                     missileList.Clear();
                     flakList.Clear();
+                    LevelEnd();
                 }
                 else
                 {
@@ -278,6 +347,6 @@ namespace MissileCommand
                 makeMissiles();
             }
 
-        }          
-    }
-}
+        }//End Game Timer Tick          
+    }//End Form Class
+}//End Namespace

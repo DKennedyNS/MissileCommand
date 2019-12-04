@@ -13,10 +13,11 @@ namespace ActorLibrary
     /// </summary>
     public class Flak : IDisposable
     {
+        //Class vars
         private Rectangle rect;
         Stopwatch stopwatch= new Stopwatch();
         #region IDisposable Support
-        private bool disposedValue = false; // To detect redundant calls
+        private bool disposedValue = false;
 
         /// <summary>
         /// Constructor for the flak object. Takes a click location from the GameScreen.
@@ -43,7 +44,7 @@ namespace ActorLibrary
                 graphics.DrawEllipse(Pens.Crimson, rect);
                 graphics.FillEllipse(Brushes.DarkOrange, rect);
 
-                rect.Inflate(elapsed / 200, elapsed / 200);
+                rect.Inflate(elapsed / 150, elapsed / 150);
             }
             else
             {
@@ -87,23 +88,12 @@ namespace ActorLibrary
             {
                 if (disposing)
                 {
-                    stopwatch.Stop();
-                    
-                    // TODO: dispose managed state (managed objects).
+                    stopwatch.Stop();                                      
                 }
-
-                // TODO: free unmanaged resources (unmanaged objects) and override a finalizer below.
-                // TODO: set large fields to null.
-
+                
                 disposedValue = true;
             }
         }
-
-        // TODO: override a finalizer only if Dispose(bool disposing) above has code to free unmanaged resources.
-        // ~Flak() {
-        //   // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
-        //   Dispose(false);
-        // }
 
         /// <summary>
         /// Implementation of the IDisposable interface. Just sets a flag to make sure disposal doesn't repeat.
@@ -113,8 +103,6 @@ namespace ActorLibrary
         {
             // Do not change this code. Put cleanup code in Dispose(bool disposing) above.
             Dispose(true);
-            // TODO: uncomment the following line if the finalizer is overridden above.
-            // GC.SuppressFinalize(this);
         }
         #endregion
     }

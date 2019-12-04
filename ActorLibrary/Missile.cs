@@ -12,6 +12,7 @@ namespace ActorLibrary
     /// </summary>
     public class Missile
     {
+        //Class vars
         private Rectangle displayArea;
         private Rectangle canvas;
         private int size = 5;
@@ -25,7 +26,7 @@ namespace ActorLibrary
         /// Constructor for the missile. Sets a random start position and semi-fixed velocity
         /// </summary>
         /// <param name="canvas"></param>
-        public Missile(Rectangle canvas, Random rand)
+        public Missile(Rectangle canvas, Random rand, int level)
         {
             displayArea.Height = size;
             displayArea.Width = size;
@@ -34,15 +35,20 @@ namespace ActorLibrary
             displayArea.Y = 0;
             originX = displayArea.X;
             originY = displayArea.Y;
+
+            //Make sure the missile can't go off the side of the screen
             if (displayArea.X < canvas.Width / 2)
             {
-                this.xVelocity = rand.Next(1, 2);
+                this.xVelocity = rand.Next(0, 2);
             }
             else
             {
-                this.xVelocity = rand.Next(-2, 1);
+                this.xVelocity = rand.Next(-2, 0);
             }
-            this.yVelocity = 5;
+
+            this.yVelocity = 3 + level;
+            
+            
         }
 
         /// <summary>

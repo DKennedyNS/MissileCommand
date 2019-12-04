@@ -89,6 +89,7 @@
             this.ButtonReset.TabIndex = 0;
             this.ButtonReset.Text = "Reset";
             this.ButtonReset.UseVisualStyleBackColor = false;
+            this.ButtonReset.Click += new System.EventHandler(this.Executor_ButtonResetClick);
             // 
             // ButtonStart
             // 
@@ -122,6 +123,7 @@
             this.ButtonQuit.TabIndex = 2;
             this.ButtonQuit.Text = "Quit";
             this.ButtonQuit.UseVisualStyleBackColor = false;
+            this.ButtonQuit.Click += new System.EventHandler(this.Executor_ButtonQuitClick);
             // 
             // panel1
             // 

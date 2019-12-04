@@ -44,7 +44,6 @@
   <ItemGroup>
     <Compile Include="City.cs" />
     <Compile Include="Flak.cs" />
-    <Compile Include="Launcher.cs" />
     <Compile Include="Missile.cs" />
     <Compile Include="Properties\AssemblyInfo.cs" />
   </ItemGroup>
