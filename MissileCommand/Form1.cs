@@ -22,9 +22,11 @@ namespace MissileCommand
         private City city4;
         private List<City> cityList = new List<City>();
         private List<Missile> missileList = new List<Missile>();
+        private List<Flak> flakList = new List<Flak>();
         private readonly Random rand = new Random();
         private int round = 0;
         private int level = 1;
+        private bool run = false;
        
 
         /// <summary>
@@ -34,6 +36,7 @@ namespace MissileCommand
         {
             InitializeComponent();
             Executor.ButtonStartClicked += new Delegates.ButtonStartClickedEventHandler(Executor_ButtonStartClick);
+            Executor.GameScreenClicked += new Delegates.GameScreenClickedEventHandler(Executor_GameScreenClick);
         }
 
         /// <summary>
@@ -54,13 +57,7 @@ namespace MissileCommand
             cityList.Add(city2);
             cityList.Add(city3);
             cityList.Add(city4);
-
-            makeMissiles();
-
-            if (!GameTimer.Enabled)
-            {            
-                GameTimer.Start();
-            }           
+          
         }
 
         /// <summary>
@@ -94,6 +91,11 @@ namespace MissileCommand
                 missile.Draw(e.Graphics);
             }
 
+            foreach (Flak flak in flakList)
+            {
+                flak.Draw(e.Graphics);
+            }
+
         }
 
         /// <summary>
@@ -103,7 +105,23 @@ namespace MissileCommand
         /// <param name="e"></param>
         private void Executor_ButtonStartClick(object sender, EventArgs e)
         {
-            Console.Write("Here");
+            if (!run)
+            {
+                run = true;
+                makeMissiles();
+
+                if (!GameTimer.Enabled)
+                {
+                    GameTimer.Start();
+                }
+            }
+        }
+
+        private void Executor_GameScreenClick(object sender, MouseEventArgs e)
+        {
+            Point point = e.Location;
+            Console.WriteLine(point);
+            flakList.Add(new Flak(point));
         }
 
         /// <summary>
@@ -174,7 +192,7 @@ namespace MissileCommand
                     {
                         missileList.Clear();
                     }
-                    else if (missile.getBounds().Top > 650 || missile.hit == true)
+                    else if (missile.getBounds().Top > 620 || missile.hit == true)
                     {
                         missileList.Remove(missile);
                     }
@@ -190,25 +208,6 @@ namespace MissileCommand
                 makeMissiles();
             }
 
-        }   
-
-        //private void Form1_KeyDown(object sender, KeyEventArgs e)
-        //{
-        //    switch (e.KeyCode)
-        //    {
-        //        case Keys.Left:
-        //            {
-
-        //            }
-        //        case Keys.Right:
-        //            {
-
-        //            }
-        //        case Keys.Space:
-        //            {
-
-        //            }
-        //    }
-        //}
+        }          
     }
 }

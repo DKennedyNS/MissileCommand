@@ -65,6 +65,7 @@
             this.GameScreen.TabIndex = 1;
             this.GameScreen.TabStop = false;
             this.GameScreen.Paint += new System.Windows.Forms.PaintEventHandler(this.Form1_Paint);
+            this.GameScreen.MouseClick += new System.Windows.Forms.MouseEventHandler(this.Executor_GameScreenClick);
             // 
             // ButtonReset
             // 
@@ -155,9 +156,10 @@
             // 
             this.City1PictureBox.Cursor = System.Windows.Forms.Cursors.Cross;
             this.City1PictureBox.Image = ((System.Drawing.Image)(resources.GetObject("City1PictureBox.Image")));
-            this.City1PictureBox.Location = new System.Drawing.Point(152, 627);
+            this.City1PictureBox.Location = new System.Drawing.Point(152, 596);
             this.City1PictureBox.Name = "City1PictureBox";
-            this.City1PictureBox.Size = new System.Drawing.Size(96, 30);
+            this.City1PictureBox.Size = new System.Drawing.Size(96, 61);
+            this.City1PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.City1PictureBox.TabIndex = 5;
             this.City1PictureBox.TabStop = false;
             // 
@@ -165,9 +167,10 @@
             // 
             this.City2PictureBox.Cursor = System.Windows.Forms.Cursors.Cross;
             this.City2PictureBox.Image = ((System.Drawing.Image)(resources.GetObject("City2PictureBox.Image")));
-            this.City2PictureBox.Location = new System.Drawing.Point(316, 627);
+            this.City2PictureBox.Location = new System.Drawing.Point(316, 596);
             this.City2PictureBox.Name = "City2PictureBox";
-            this.City2PictureBox.Size = new System.Drawing.Size(96, 30);
+            this.City2PictureBox.Size = new System.Drawing.Size(96, 61);
+            this.City2PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.City2PictureBox.TabIndex = 6;
             this.City2PictureBox.TabStop = false;
             // 
@@ -175,9 +178,10 @@
             // 
             this.City3PictureBox.Cursor = System.Windows.Forms.Cursors.Cross;
             this.City3PictureBox.Image = ((System.Drawing.Image)(resources.GetObject("City3PictureBox.Image")));
-            this.City3PictureBox.Location = new System.Drawing.Point(601, 627);
+            this.City3PictureBox.Location = new System.Drawing.Point(601, 596);
             this.City3PictureBox.Name = "City3PictureBox";
-            this.City3PictureBox.Size = new System.Drawing.Size(96, 30);
+            this.City3PictureBox.Size = new System.Drawing.Size(96, 61);
+            this.City3PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.City3PictureBox.TabIndex = 7;
             this.City3PictureBox.TabStop = false;
             // 
@@ -185,9 +189,10 @@
             // 
             this.City4PictureBox.Cursor = System.Windows.Forms.Cursors.Cross;
             this.City4PictureBox.Image = ((System.Drawing.Image)(resources.GetObject("City4PictureBox.Image")));
-            this.City4PictureBox.Location = new System.Drawing.Point(786, 627);
+            this.City4PictureBox.Location = new System.Drawing.Point(786, 596);
             this.City4PictureBox.Name = "City4PictureBox";
-            this.City4PictureBox.Size = new System.Drawing.Size(96, 30);
+            this.City4PictureBox.Size = new System.Drawing.Size(96, 61);
+            this.City4PictureBox.SizeMode = System.Windows.Forms.PictureBoxSizeMode.StretchImage;
             this.City4PictureBox.TabIndex = 8;
             this.City4PictureBox.TabStop = false;
             // 

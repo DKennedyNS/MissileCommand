@@ -10,5 +10,6 @@ namespace MissileCommand
     class Executor
     {
         public static event ButtonStartClickedEventHandler ButtonStartClicked;
+        public static event GameScreenClickedEventHandler GameScreenClicked;
     }
 }
