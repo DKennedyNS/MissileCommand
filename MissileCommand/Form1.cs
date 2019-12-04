@@ -24,6 +24,8 @@ namespace MissileCommand
         private List<City> cityList = new List<City>();
         private List<Missile> missileList = new List<Missile>();
         private readonly Random rand = new Random();
+        private int round = 0;
+        private int level = 1;
        
 
         /// <summary>
@@ -41,7 +43,7 @@ namespace MissileCommand
         /// <param name="sender"></param>
         /// <param name="e"></param>
         private void Form1_Load(object sender, EventArgs e)
-        {
+        {        
             DoubleBuffered = true;
             reticle = new Reticle();
 
@@ -58,19 +60,27 @@ namespace MissileCommand
             makeMissiles();
 
             if (!GameTimer.Enabled)
-            {
+            {            
                 GameTimer.Start();
             }           
         }
 
+        /// <summary>
+        /// Create a series of missiles on the game screen
+        /// </summary>
         private void makeMissiles()
-        {
+        {       
             for (int j = 0; j <= 5; j++)
             {
                 missileList.Add(new Missile(GameScreen.DisplayRectangle, rand));
             }
         }
 
+        /// <summary>
+        /// Paint the current form. Called on load and redraw
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
         private void Form1_Paint(object sender, PaintEventArgs e)
         {
 
@@ -100,12 +110,28 @@ namespace MissileCommand
         {
             Console.WriteLine("Tick");
 
-            foreach (Missile missile in missileList)
+            if (missileList.Count != 0 && round < 4)
             {
-                missile.Move();                
+                foreach (Missile missile in missileList)
+                {
+                    missile.Move();
+                }
+                foreach (var missile in missileList.ToList())
+                {
+                    if (missile.getBounds().Top > 650)
+                    {
+                        missileList.Remove(missile);
+                    }
+                }
+                Invalidate();
+                Update();
             }
-            Invalidate();
-            Update();
+            else
+            {
+                level++;
+                makeMissiles();
+            }
+
         }   
 
         //private void Form1_KeyDown(object sender, KeyEventArgs e)

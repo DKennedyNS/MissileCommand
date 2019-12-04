@@ -45,6 +45,8 @@ namespace ActorLibrary
         private int size = 5; 
         private int xVelocity;
         private int yVelocity;
+        private int originX;
+        private int originY;      
 
         /// <summary>
         /// Constructor for the missiles. Sets a random start position and fixed velocity
@@ -55,13 +57,26 @@ namespace ActorLibrary
             displayArea.Height = size;
             displayArea.Width = size;
             this.canvas = canvas;
-            displayArea.X = rand.Next(0, canvas.Width + 1);
+            displayArea.X = rand.Next(100, canvas.Width -100);
             displayArea.Y = 0;
-            this.xVelocity = rand.Next(-1, 2); //TODO: change these to increase as a factor of the level.
-            this.yVelocity = 5;
-            
+            originX = displayArea.X;
+            originY = displayArea.Y;
+            if(displayArea.X < canvas.Width / 2)
+            {
+                this.xVelocity = rand.Next(1, 2);
+            }
+            else
+            {
+                this.xVelocity = rand.Next(-2, 1);
+            }
+            //TODO: change these to increase as a factor of the level.
+            this.yVelocity = 5;            
         }
 
+        /// <summary>
+        /// Returns the bounds of the missile
+        /// </summary>
+        /// <returns></returns>
         public Rectangle getBounds()
         {
             return displayArea;
@@ -76,6 +91,7 @@ namespace ActorLibrary
         public void Draw(Graphics graphics)
         {        
             graphics.FillRectangle(Brushes.White, displayArea);
+            graphics.DrawLine(Pens.OrangeRed, displayArea.X, displayArea.Y, originX, originY);
         }
     }
 
